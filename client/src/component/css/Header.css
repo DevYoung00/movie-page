@@ -1,0 +1,18 @@
+.header #gnb {
+    padding: 20px;
+    display: flex;
+  justify-content:flex-end;
+  
+}
+h1{
+    text-align: center;
+    margin:15px;
+}
+button{
+    margin:10px;
+    padding:5px;
+}
+.header{
+    margin:30px;
+
+}

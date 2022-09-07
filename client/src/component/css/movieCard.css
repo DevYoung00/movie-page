@@ -1,0 +1,14 @@
+.movieCard{
+    text-align: center;
+ 
+
+}
+.movie-image img{
+   width:150px;
+   border-radius: 20%;
+}
+.movie-image{
+    margin:30px;
+    cursor: pointer;
+}
+

@@ -1,0 +1,31 @@
+.searchBox .form-control {
+    width: 600px;
+    display: inline-block;
+
+}
+
+.searchBox {
+    width:100%;
+    display: inline-block;
+    margin:0 auto;
+}
+.searchBox button{
+    width:100px;
+    margin-left: 0;
+    margin-top: 0;
+}
+.movieList{
+    display: flex;
+    flex-direction: row;
+    align-content: flex-start;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    margin-right: 10%;
+    margin-left: 10%;
+    padding-bottom: 5%;
+    padding-top: 5%;
+}
+.search{
+    text-align: center;
+}
