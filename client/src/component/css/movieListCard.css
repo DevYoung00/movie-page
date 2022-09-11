@@ -12,3 +12,15 @@
     cursor: pointer;
 }
 
+.movieList{
+    display: flex;
+    flex-direction: row;
+    align-content: flex-start;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    margin-right: 10%;
+    margin-left: 10%;
+    padding-bottom: 5%;
+
+}

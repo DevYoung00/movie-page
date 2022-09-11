@@ -21,6 +21,11 @@ export default function MovieCard({ item }) {
         console.log(myList)
         alert("추가 되었습니다.")
       })
+      .catch(function(error) {
+        if(error.response){
+          alert("이미 추가된 영화입니다.")
+        }
+      })
 
   }
 
@@ -36,8 +41,6 @@ export default function MovieCard({ item }) {
                 <button type="button" class="btn btn-default" 
                  style = { isInsert  ? { visibility: "hidden" } : { visibility: "unset"} }
                     onClick={e => insertMovie() }>추가</button>
-            
-    
           </div>
         </div>
       );

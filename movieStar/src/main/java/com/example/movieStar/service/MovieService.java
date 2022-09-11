@@ -1,36 +1,28 @@
 package com.example.movieStar.service;
-
+import static com.example.movieStar.config.BaseExceptionStatus.*;
+import com.example.movieStar.config.BaseException;
 import com.example.movieStar.config.User.JwtTokenProvider;
 import com.example.movieStar.domain.MovieListRepository;
-import com.example.movieStar.domain.MovieReviewRepository;
-import com.example.movieStar.domain.MovieStarRepository;
 import com.example.movieStar.domain.UserRepository;
 import com.example.movieStar.domain.entity.MovieListEntity;
-import com.example.movieStar.domain.entity.MovieReviewEntity;
-import com.example.movieStar.domain.entity.MovieStarEntity;
-import com.example.movieStar.domain.entity.UserEntity;
 import com.example.movieStar.naver.NaverClient;
+import dto.InsertStarReviewDto;
 import dto.MovieInsertDto;
-import dto.MovieReqDto;
 import dto.MovieResDto;
-import dto.MovieStarDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
-import java.util.Properties;
 
 
 @RequiredArgsConstructor
 @Transactional
 @Service
 public class MovieService {
+
     private final NaverClient naverClient;
     private final MovieListRepository movieListRepository;
-    private final MovieStarRepository movieStarRepository;
-    private final MovieReviewRepository movieReviewRepository;
     private final JwtTokenProvider jwtTokenProvider;
     private final UserRepository userRepository;
 
@@ -40,27 +32,24 @@ public class MovieService {
         return movieResDto;
     }
 
-    public MovieListEntity insertMovie( MovieInsertDto movieInsertDto){
+    public MovieListEntity insertMovie( MovieInsertDto movieInsertDto) throws BaseException{
         MovieListEntity movieList = new MovieListEntity(movieInsertDto.getTitle() , movieInsertDto.getImg());
-
+        if( movieListRepository.findByTitle(movieInsertDto.getTitle() ) != null){
+            throw new BaseException(FAILED_TO_INSERT);
+        }
         return movieListRepository.save(movieList);
     }
 
-    public MovieListEntity insertStar(String title, int star){
-        MovieListEntity movieListEntity = movieListRepository.findByTitle(title);
-        movieListEntity.setStar(star);
+    public MovieListEntity insertStarAndReview(InsertStarReviewDto insertStarReviewDto)   {
+        MovieListEntity movieListEntity = movieListRepository.findByTitle(insertStarReviewDto.getTitle());
+        movieListEntity.setStar(insertStarReviewDto.getStar());
+        movieListEntity.setReview(insertStarReviewDto.getComent());
         return movieListEntity;
     }
 
-    public MovieListEntity insertReview(String title,String coment){
-        MovieListEntity movieListEntity = movieListRepository.findByTitle(title);
-        movieListEntity.setReview(coment);
-        return movieListEntity;
-
-    }
 
     public void deleteMovie(String title){
-        MovieListEntity movieListEntity = movieListRepository.findByTitle(title);
+         MovieListEntity movieListEntity = movieListRepository.findByTitle(title);
         movieListRepository.delete(movieListEntity);
     }
 

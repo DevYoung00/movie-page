@@ -1,6 +1,7 @@
 .searchBox .form-control {
     width: 600px;
     display: inline-block;
+    margin-top: 20px;
 
 }
 
@@ -14,7 +15,7 @@
     margin-left: 0;
     margin-top: 0;
 }
-.movieList{
+.search .movieList{
     display: flex;
     flex-direction: row;
     align-content: flex-start;

@@ -22,7 +22,7 @@ public class UserEntity {
     @Column(name = "user_id")
     private int userIdx;
 
-    @Column(nullable = false,unique = true)
+    @Column(nullable = false)
     private String email;
 
     private String name;
@@ -30,13 +30,6 @@ public class UserEntity {
     @Column(nullable = false)
     private String password;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "userIdx")
-    private List<MovieReviewEntity> reviewList = new ArrayList<>();
-
-    @JsonIgnore
-    @OneToMany(mappedBy = "userIdx")
-    private List<MovieStarEntity> starList = new ArrayList<>();
 
     @Enumerated(EnumType.STRING)
     private UserRole role;

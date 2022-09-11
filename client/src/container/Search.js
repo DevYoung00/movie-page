@@ -25,21 +25,22 @@ export default function Search() {
     getMovies()
   }, [] ,
 )
- 
+
 
     return(
         <div className="search">
             <div className="searchBox">
         <input type="text" class="form-control" placeholder="영화를 검색해보세요" 
                    value={search}
-                   onChange={e => setSearch(e.target.value)} ></input>
+                   onChange={e => setSearch(e.target.value)} 
+                  ></input>
     <button type="button" class="btn btn-primary" 
-    onClick={e => getMovies()}>영화 검색</button>
+    onClick={e => getMovies()} >영화 검색</button>
     </div>
     <div className="movieList">
         {movies.map((item) => {
           return (
-        <MovieCard item={item}></MovieCard>
+        <MovieCard item={item} ></MovieCard>
           )
         })}
     </div>

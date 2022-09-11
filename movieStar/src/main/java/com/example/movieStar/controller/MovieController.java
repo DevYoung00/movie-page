@@ -1,16 +1,17 @@
 package com.example.movieStar.controller;
 
 
+import com.example.movieStar.config.BaseException;
+import com.example.movieStar.domain.MovieListRepository;
 import com.example.movieStar.domain.entity.MovieListEntity;
-import com.example.movieStar.domain.entity.MovieReviewEntity;
-import com.example.movieStar.domain.entity.MovieStarEntity;
 import com.example.movieStar.service.MovieService;
+import dto.InsertStarReviewDto;
 import dto.MovieInsertDto;
 import dto.MovieResDto;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -19,6 +20,7 @@ import java.util.List;
 public class MovieController {
 
     private final MovieService movieService;
+    private final MovieListRepository movieListRepository;
 
     @GetMapping("/search")
     public MovieResDto get(@RequestParam String query){
@@ -26,18 +28,13 @@ public class MovieController {
     }
 
     @PostMapping("/insert")
-    public MovieListEntity insertMovie(@RequestBody MovieInsertDto movieInsertDto){
+    public MovieListEntity insertMovie(@RequestBody MovieInsertDto movieInsertDto) throws BaseException{
         return movieService.insertMovie(movieInsertDto);
     }
 
-    @PostMapping("/star")
-    public MovieListEntity insertStar(@RequestParam String title, Integer star){
-        return movieService.insertStar(title,star);
-    }
-
-    @PostMapping("/review")
-    public MovieListEntity  insertReview(@RequestParam String title, String coment){
-        return movieService.insertReview(title,coment);
+    @PostMapping("/starAndReview")
+    public MovieListEntity insertStar(@RequestBody InsertStarReviewDto insertStarReviewDto)  {
+        return movieService.insertStarAndReview(insertStarReviewDto);
     }
 
     @DeleteMapping("/delete")
@@ -51,5 +48,23 @@ public class MovieController {
         List<MovieListEntity> movieList =  movieService.getMovie();
         return movieList;
     }
+
+    @GetMapping("/isExist")
+    public Boolean isReviewAndStar(@RequestParam String title){
+        MovieListEntity movieListEntity = movieListRepository.findByTitle(title);
+        if(movieListEntity.getReview() != null || movieListEntity.getStar() >0 ){
+            return true;
+        }
+        else return false;
+    }
+
+
+    @GetMapping("/getMovieEntity")
+    public MovieListEntity getMovie(@RequestParam String title){
+        MovieListEntity movieListEntity = movieListRepository.findByTitle(title);
+        return movieListEntity;
+
+    }
+
 
 }

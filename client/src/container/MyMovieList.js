@@ -22,7 +22,7 @@ export default function MyMovieList() {
      
     return (
         <div className="myMovieList">
-        
+        <h4>[Movie List]</h4>
             <div className="movieList">
         {movieList.map((item) => {
           return (
