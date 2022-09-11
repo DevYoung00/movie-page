@@ -26,7 +26,7 @@
     <br>
 별점, 리뷰 작성 전
     <br><br>
-    <img width="880" alt="리뷰 작성 후" src="https://user-images.githubusercontent.com/93467085/189527411-8792e5e8-e140-4d00-8fb9-1e4de20953c8.PNG">
+    <img width="70% alt="리뷰 작성 후" src="https://user-images.githubusercontent.com/93467085/189527411-8792e5e8-e140-4d00-8fb9-1e4de20953c8.PNG">
 <br>
 별점, 리뷰 작성 후
      <br><br>
