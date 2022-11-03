@@ -1,0 +1,10 @@
+.searchMovieReview .content{
+    position :static;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: 200px;
+    border : 2px solid #000;
+    background-color: white;
+    
+}

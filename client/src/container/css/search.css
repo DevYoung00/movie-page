@@ -1,14 +1,15 @@
 .searchBox .form-control {
     width: 600px;
     display: inline-block;
-    margin-top: 20px;
+    margin-top: 10px;
+
 
 }
 
 .searchBox {
     width:100%;
     display: inline-block;
-    margin:0 auto;
+ 
 }
 .searchBox button{
     width:100px;
@@ -25,8 +26,13 @@
     margin-right: 10%;
     margin-left: 10%;
     padding-bottom: 5%;
-    padding-top: 5%;
+
 }
 .search{
     text-align: center;
+    height: 1200px;
+    background-color:#C2C2C2;
+}
+.search p{
+    margin-top: 20px;
 }

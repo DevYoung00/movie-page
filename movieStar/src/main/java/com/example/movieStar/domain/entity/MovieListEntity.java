@@ -17,12 +17,8 @@ public class MovieListEntity {
     @Id //PK
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long movieIdx;
-
-
     @Column
     private String title;
-
-
     @Column
     private String img;
 
@@ -31,11 +27,22 @@ public class MovieListEntity {
 
     @Column(nullable = true)
     private String review;
+    @Column(nullable = false)
+    private int userId;
 
     @Builder
-    public MovieListEntity(String title ,String img){
+    public MovieListEntity(String title ,String img, int userId){
         this.title = title;
         this.img = img;
+        this.userId = userId;
     }
+
+    public void update(String title, int star, String review){
+        this.title = title;
+        this.star = star;
+        this.review = review;
+
+    }
+
 
 }

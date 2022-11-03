@@ -5,13 +5,16 @@ import com.example.movieStar.config.BaseException;
 import com.example.movieStar.domain.MovieListRepository;
 import com.example.movieStar.domain.entity.MovieListEntity;
 import com.example.movieStar.service.MovieService;
+import com.example.movieStar.service.UserService;
 import dto.InsertStarReviewDto;
 import dto.MovieInsertDto;
 import dto.MovieResDto;
+import dto.MovieReviewDto;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -20,6 +23,7 @@ import java.util.List;
 public class MovieController {
 
     private final MovieService movieService;
+    private final UserService userService;
     private final MovieListRepository movieListRepository;
 
     @GetMapping("/search")
@@ -28,30 +32,31 @@ public class MovieController {
     }
 
     @PostMapping("/insert")
-    public MovieListEntity insertMovie(@RequestBody MovieInsertDto movieInsertDto) throws BaseException{
-        return movieService.insertMovie(movieInsertDto);
+    public MovieListEntity insertMovie(HttpServletRequest request, @RequestBody MovieInsertDto movieInsertDto) throws BaseException{
+        return movieService.insertMovie(request, movieInsertDto);
     }
 
     @PostMapping("/starAndReview")
-    public MovieListEntity insertStar(@RequestBody InsertStarReviewDto insertStarReviewDto)  {
-        return movieService.insertStarAndReview(insertStarReviewDto);
+    public MovieListEntity insertStar(HttpServletRequest request,@RequestBody InsertStarReviewDto insertStarReviewDto)  {
+        return movieService.insertStarAndReview(request,insertStarReviewDto);
     }
 
     @DeleteMapping("/delete")
-    public String insertMovie(@RequestParam String title){
-        movieService.deleteMovie(title);
+    public String insertMovie(HttpServletRequest request, @RequestParam String title){
+        movieService.deleteMovie(request,title);
         return "리스트에서 삭제되었습니다.";
     }
 
     @GetMapping("/get")
-    public List<MovieListEntity> getMovie(){
-        List<MovieListEntity> movieList =  movieService.getMovie();
+    public List<MovieListEntity> getMovie(HttpServletRequest request){
+        List<MovieListEntity> movieList =  movieService.getMovie(request);
         return movieList;
     }
 
     @GetMapping("/isExist")
-    public Boolean isReviewAndStar(@RequestParam String title){
-        MovieListEntity movieListEntity = movieListRepository.findByTitle(title);
+    public Boolean isReviewAndStar(HttpServletRequest request,@RequestParam String title){
+        int userId = userService.GetUser(request);
+        MovieListEntity movieListEntity = movieListRepository.findByTitleAndUserId(title , userId);
         if(movieListEntity.getReview() != null || movieListEntity.getStar() >0 ){
             return true;
         }
@@ -60,11 +65,23 @@ public class MovieController {
 
 
     @GetMapping("/getMovieEntity")
-    public MovieListEntity getMovie(@RequestParam String title){
-        MovieListEntity movieListEntity = movieListRepository.findByTitle(title);
+    public MovieListEntity getMovie(HttpServletRequest request,@RequestParam String title){
+        int userId = userService.GetUser(request);
+        MovieListEntity movieListEntity = movieListRepository.findByTitleAndUserId(title , userId);
         return movieListEntity;
+    }
+    @GetMapping("/getReview")
+     public List<MovieReviewDto> getReview(@RequestParam String title){
+        List<MovieReviewDto> movieReviewList = movieService.getReview(title);
+        return movieReviewList;
 
     }
+    @PatchMapping("/updateReview")
+    public MovieListEntity updateReview(HttpServletRequest request,@RequestBody InsertStarReviewDto insertStarReviewDto){
+        return movieService.updateReview(request,insertStarReviewDto);
+
+    }
+
 
 
 }

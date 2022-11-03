@@ -1,0 +1,30 @@
+.join {
+text-align: center;
+    height: 600px;
+    background-color:#C2C2C2;
+}
+
+.join .joinBox {
+
+    width: 400px;
+    height: 500px;
+    text-align: center;
+    margin: 20px auto;
+    
+}
+
+.join .joinBox h5{
+    color:white;
+    display: inline-block;
+    background: black;
+    margin-top: 20px;
+
+}
+
+.form-group{   
+    margin:10px;
+}
+
+#form-button {
+display: flex;
+}

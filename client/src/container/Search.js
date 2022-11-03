@@ -16,27 +16,32 @@ export default function Search() {
       .then((res) => {
         setMovies(res.data.items)
         console.log(movies)
-        //setLoading(false)
+        //setLoading(false) 
   
       })
   }
+  const onEnterSearch = (e) => {
+    if (e.key === "Enter") {
+      //키를 눌렀을 때 동작할 코드
+      getMovies()
+    }
+  };
 
   useEffect(() => {
     getMovies()
   }, [] ,
 )
-
-
     return(
         <div className="search">
+          <img src="search_img.png"/>
             <div className="searchBox">
-        <input type="text" class="form-control" placeholder="영화를 검색해보세요" 
+        <input type="text" class="form-control" placeholder="영화를 검색해보세요 (검색 후 엔터)" 
                    value={search}
                    onChange={e => setSearch(e.target.value)} 
+                   onKeyPress={onEnterSearch}
                   ></input>
-    <button type="button" class="btn btn-primary" 
-    onClick={e => getMovies()} >영화 검색</button>
     </div>
+    <p>검색 후 이미지 클릭 시 리뷰가 나옵니다.</p>
     <div className="movieList">
         {movies.map((item) => {
           return (

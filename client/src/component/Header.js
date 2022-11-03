@@ -1,19 +1,40 @@
 import "./css/Header.css";
-import {Link} from 'react-router-dom';
+import axios from 'axios';
+import {Link ,useNavigate,useLocation} from 'react-router-dom';
+import React, { useState,useEffect } from "react";
+import { useCookies } from 'react-cookie'; // useCookies import
+
 
 export default function Header() {
+    const navigate = useNavigate();
+const location = useLocation();
+const [cookies, setCookie, removeCookie] = useCookies(['token'])
+const [auth, setAuth] = useState(false)
+const goReset = () => {
 
-
+    if(location.pathname === "/"){
+        window.location.reload();
+    }
+    else {
+        navigate("/")
+    }
+    
+}
     return(
         <div className="header">
-            <Link to="/" style={{ textDecoration: 'none' }}>  <h1
-            >Movie Page</h1></Link>
-            <div id="gnb">
-            <Link to="/myList"> <button type="button" class="btn btn-primary">영화 리스트 보기</button></Link>
-            <Link to="/"> <button type="button" class="btn btn-primary">영화 검색하기</button></Link>
-           
+            <div className="header_logo">
+            <Link to="/" style={{ textDecoration: 'none' }}>
+                <img onClick={goReset} 
+                src="about_movie_logo.png"/>
+            </Link>
             </div>
-            <hr></hr>
+            <div id="gnb">
+            <Link to="/"> <button type="button" class="btn btn-danger">영화 검색</button> </Link>
+            <Link to="/join"> <button type="button" class="btn btn-danger">회원가입</button></Link> 
+            <Link to="/login"> <button type="button" class="btn btn-danger">로그인</button></Link> 
+ 
+            </div>
+           
         </div>
     )
 }

@@ -2,7 +2,11 @@
     padding: 20px;
     display: flex;
   justify-content:flex-end;
+  background-color: white;
   
+}
+.header_logo img{
+height: 150px;
 }
 h1{
     text-align: center;
@@ -11,8 +15,18 @@ h1{
 .header button{
     margin:10px;
     padding:5px;
-}
-.header{
-    margin:30px;
+    color:black;
+    text-decoration: none;
+    background-color: white;
+    border:none;
 
+   
+}
+
+
+.header{
+    display: flex;
+    justify-content:space-around;
+    background-color: white;
+    padding: 20px;
 }

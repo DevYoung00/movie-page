@@ -4,35 +4,45 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import MovieReviewAndStar from './MovieReviewAndStar';
 import ShowMovieReviewAndStar from './ShowMovieReviewAndStar';
+import { useCookies } from 'react-cookie'; // useCookies import
 import "./css/movieImgModal.css"
 
 export default function MovieImgModal({ setShow, item }) {
+  const [cookies, setCookie, removeCookie] = useCookies(['token'])
   const handleClose = () => {
     setShow(false);
   }
   const [isExist, setIsExist] = useState(false)
-
-    //const handleIsExist = () => 
-    //{
-      //setIsExist(true);
-    //}
- 
+  const [notPatch, setNotPatch] = useState(true)
 
   const getIsExist = () => { 
-    axios.get('http://localhost:9000/api/movies/isExist',
-    {params: {title: item.title}}, 
-    { withCredentials: true },
+    const headers = {
+      'Content-Type' : 'application/json',
+      'Authorization' : cookies.token ,
+  }
+    axios.get('http://localhost:9000/api/movies/isExist',{
+      params: {title: item.title} ,headers:headers}
     )
       .then((res) => {
-        setIsExist(res.data)
-        console.log(isExist)
+        if(res.data === true){
+          setIsExist(res.data)
+          console.log(isExist)
+        }
+     
       })
+      .catch((error) => {
+      
+      })
+  }
+  
+  const handlePatch = () => {
+    setNotPatch(false)
   }
 
 
-useEffect(() => {
-  getIsExist()
-});
+  useEffect(() => {
+    getIsExist()
+  }, []);
 
   return (
 
@@ -44,15 +54,17 @@ useEffect(() => {
         keyboard={false}
       >
         <Modal.Header closeButton>
-          <Modal.Title>{item.title}</Modal.Title>
+          <Modal.Title><h3>{item.title}</h3></Modal.Title>
         </Modal.Header>
         <Modal.Body>
-        { isExist ? ( <ShowMovieReviewAndStar item={item} /> ) : ( < MovieReviewAndStar   item={item} setIsExist={setIsExist}/> ) }
-
-        </Modal.Body>
+        { isExist&&notPatch ? ( <ShowMovieReviewAndStar item={item}/> ) : ( < MovieReviewAndStar isExist={isExist} setNotPatch={setNotPatch} item={item} setIsExist={setIsExist}/> ) }
+      </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
+          <Button variant="defalut" onClick={handleClose}>
             닫기
+          </Button>
+          <Button variant="defalut" onClick={handlePatch}>
+            수정
           </Button>
         </Modal.Footer>
       </Modal>

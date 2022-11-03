@@ -7,39 +7,16 @@ import { useCookies } from 'react-cookie'; // useCookies import
 import axios from 'axios';
 
 
-export default function MovieReviewAndStar({ isExist, setNotPatch, setIsExist, item }) {
+export default function PatchReview({ setIsExist, item }) {
   const [cookies, setCookie, removeCookie] = useCookies(['token'])
     const [star, setStar] = useState(0)
     const [coment, setComent] = useState("")
 
   
     const handleInput = () => {
-        setIsExist(true);
-      }
-  
-      const handlePatch = () => {
-        setNotPatch(true);
+        setIsExist(1);
       }
 
-    const InputReviewAndStar = () => {
-      const headers = {
-        'Content-Type' : 'application/json',
-        'Authorization' : cookies.token ,
-    }
-        axios.post('http://localhost:9000/api/movies/starAndReview',{
-            title : item.title,
-            star: star,
-            coment : coment 
-            },{headers:headers}
-            )
-          .then((res) => {
-            alert("별점과 리뷰가 추가 되었습니다.")
-            setIsExist(true);
-            console.log(res);
-            window.location.reload();
-          })
-    
-    }
     const patchReviewAndStar= () => {
       const headers = {
         'Content-Type' : 'application/json',
@@ -53,21 +30,11 @@ export default function MovieReviewAndStar({ isExist, setNotPatch, setIsExist, i
             )
           .then((res) => {
             console.log(res)
-            setNotPatch(true);
             alert("별점과 리뷰가 수정 되었습니다.")
             window.location.reload();
           })
     
     }
-    const insertOrPatch = () => {
-      if(isExist === false) {
-        InputReviewAndStar()
-      }
-      else {
-        patchReviewAndStar()
-      }
-    }
-
 
       return (
  
@@ -92,13 +59,11 @@ export default function MovieReviewAndStar({ isExist, setNotPatch, setIsExist, i
           value={coment}
           onChange={e => setComent(e.target.value)} />
       </Form.Group>
-     
-      <Button  
-      variant="danger" type="submit" onClick={ () => {
-        insertOrPatch()} }>
-        완료
+      <Button variant="danger" type="submit" onClick={ () => {
+     handleInput()
+     patchReviewAndStar()} }>
+        수정
       </Button>
-      
     </Form>
             </div>
       )

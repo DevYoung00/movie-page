@@ -1,14 +1,36 @@
 .movieCard{
+    margin-top: 10px;
     text-align: center;
- 
+    background-color:black;
 
 }
+.movieCard .movieCard_container{
+    width:200px;
+    height: 380px;
+    display: flex;
+    flex-flow: column;
+    justify-content: flex-end;
+}
+
 .movie-image img{
    width:150px;
-   border-radius: 20%;
+   cursor: pointer;
+
 }
-.movie-image{
-    margin:30px;
-    cursor: pointer;
+.movieCard * {
+
+    background-color:black;
+}
+.movieCard h5{
+    color:white;
+}
+
+
+.insertButton {
+    background-color:white
+}
+
+.insertButton Button {
+    background-color:white
 }
 

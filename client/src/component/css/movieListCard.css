@@ -1,15 +1,33 @@
 .movieListCard{
+    margin-top: 5%;
     text-align: center;
- 
+    background-color:black;
 
 }
 .movie-image img{
    width:150px;
-   border-radius: 20%;
+
+}
+.movieListCard .movieListCard_container{
+    width:200px;
+    height: 380px;
+    display: flex;
+    flex-flow: column;
+    justify-content: flex-end;
+}
+.movieListCard * {
+
+    background-color:black;
 }
 .movie-image{
     margin:30px;
     cursor: pointer;
+}
+.movieListCard h5{
+    color:white;
+}
+.movieListCard .deleteButton button{
+    color:red;
 }
 
 .movieList{
