@@ -15,5 +15,7 @@
 
   
   <br><br>
+  설명 및 시연 영상 ⤵️
+  <br>
   https://www.notion.so/kidzero/346ebb0142e843ab9b95652fb37983a8
   </div>
