@@ -1,4 +1,4 @@
-# moviePage
+# movie-page
 네이버 오픈 api 활용 영화 검색, 별점 사이트 
 
 <div align ="center">
